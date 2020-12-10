@@ -1,7 +1,7 @@
 # UOHI_PCI_Log
+## How to
 
-
-### On MACOS:
+### On MACOS
 
 1) Install Github
 https://gist.github.com/derhuerst/1b15ff4652a867391f03
@@ -48,8 +48,8 @@ https://gist.github.com/derhuerst/1b15ff4652a867391f03
 
 For example if your PCI Log book is named `avram_18_11_2020.xlsx` then you should run `python ComputeMetrics.py 'avram_18_11_2020.xlsx'`
 
+## Output
 
-### Results
 
 You will get three files
 
@@ -57,7 +57,7 @@ You will get three files
 2) overall_.csv Contains all your cases, including diagnostics. The last columns in the file can be used to 'filter' the required data
 3) interventions_.csv Contains all the intervention data. The last columns in the file can be used to 'filter' the required data (i.e. select all the Bifurcation cases
 
-### Definitions
+## Definitions
 
 1) Calcified cases are defined by any case where you required a 'rotablator', 'guideliner' or 'cutting balloon'
 np.where(((df_intervention['guideliner_used']=='Yes') | (df_intervention['thrombectomy_used']=='Yes') | (df_intervention['distal_protection_used']=='Yes') | (df_intervention['rotablator_used']=='Yes') | (df_intervention['cutting_balloon_used']=='Yes')| (df_intervention['lm_interv']==True) | (df_intervention['bifurcation_interv']==True)
