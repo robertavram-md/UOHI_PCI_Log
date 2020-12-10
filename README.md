@@ -56,3 +56,12 @@ You will get three files
 1) condensed_summary_.csv Contains the summary of number of cases breakdown as required by the royal college
 2) overall_.csv Contains all your cases, including diagnostics. The last columns in the file can be used to 'filter' the required data
 3) interventions_.csv Contains all the intervention data. The last columns in the file can be used to 'filter' the required data (i.e. select all the Bifurcation cases
+
+### Definitions
+
+1) Calcified cases are defined by any case where you required a 'rotablator', 'guideliner' or 'cutting balloon'
+np.where(((df_intervention['guideliner_used']=='Yes') | (df_intervention['thrombectomy_used']=='Yes') | (df_intervention['distal_protection_used']=='Yes') | (df_intervention['rotablator_used']=='Yes') | (df_intervention['cutting_balloon_used']=='Yes')| (df_intervention['lm_interv']==True) | (df_intervention['bifurcation_interv']==True)
+
+2) Complicated cases are defined by any LEFT MAIN PCI, BIFURCATION, CALCIFIED LESION, USE OF ROTABLATOR, THROMBECTOMY CATHETER USED, DISTAL PROTECTION DEVICE USED or GUIDELINER
+
+3) It is currently impossible to know how many 'bypass' grafts or 'CTOs' you have done unless you specified them as 'free text' in the last box in the CAPITAL_PCI registry entry.
