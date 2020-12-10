@@ -2,6 +2,7 @@
 ## How to
 
 ### On MACOS
+0) Get your PCI data from Richard Jung as an XLSX file. Make sure you save the file without a password so that the Terminal can open it (Open it in Excel -> Go to File - > Passwords and type the current password, then under 'New Password' leave the field empty)
 
 1) Install Github
 https://gist.github.com/derhuerst/1b15ff4652a867391f03
@@ -14,18 +15,17 @@ https://gist.github.com/derhuerst/1b15ff4652a867391f03
 
 5) Install Python https://www.python.org/downloads/
 
-6) Get your PCI data from Richard Jung as an XLSX file. Make sure you save the file without a password so that the Terminal can open it (Open it in Excel -> Go to File - > Passwords and type the current password, then under 'New Password' leave the field empty)
+6) Put your PCI data .xlsx file into the folder called `UOHI_PCI_Log`
 
-7) Put your PCI data .xlsx file into the folder called `UOHI_PCI_Log`
+7) Run in terminal `pip install pandas`
 
-8) Run in terminal `pip install pandas`
-
-9) Run this command in terminal `python ComputeMetrics.py '**filename**'`
+8) Run this command in terminal `python ComputeMetrics.py '**filename**'`
 
 For example if your PCI Log book is named `avram_18_11_2020.xlsx` then you should run `python ComputeMetrics.py 'avram_18_11_2020.xlsx'`
 
 ### On Windows:
 
+0) Get your PCI data from Richard Jung as an XLSX file. Make sure you save the file without a password so that the Terminal can open it (Open it in Excel -> Go to File - > Passwords and type the current password, then under 'New Password' leave the field empty)
 
 1) Install Github
 https://gist.github.com/derhuerst/1b15ff4652a867391f03
@@ -38,13 +38,11 @@ https://gist.github.com/derhuerst/1b15ff4652a867391f03
 
 5) Install Python https://www.python.org/downloads/
 
-6) Get your PCI data from Richard Jung (`rjung@ottawaheart.ca`) as an XLSX file. Make sure you save the file without a password so that the Terminal can open it (Open it in Excel -> Go to File - > Passwords and type the current password, then under 'New Password' leave the field empty)
+6) Put your PCI data .xlsx file into the folder called `UOHI_PCI_Log`
 
-7) Put your PCI data .xlsx file into the folder called `UOHI_PCI_Log`
+7) Run in Command Prompt `pip install pandas`
 
-8) Run in Command Prompt `pip install pandas`
-
-9) Run in Command Prompt `python ComputeMetrics.py '**filename**'`
+8) Run in Command Prompt `python ComputeMetrics.py '**filename**'`
 
 For example if your PCI Log book is named `avram_18_11_2020.xlsx` then you should run `python ComputeMetrics.py 'avram_18_11_2020.xlsx'`
 
