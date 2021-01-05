@@ -15,13 +15,15 @@ https://gist.github.com/derhuerst/1b15ff4652a867391f03
 
 4) You will have a new folder where Terminal or command Prompt was opened called `UOHI_PCI_Log`
 
-5) Install Python https://www.python.org/downloads/
+5) Change directory to `UOHI_PCI_Log` by typing the following `cd UOHI_PCI_Log`
 
-6) Put your PCI data .xlsx file into the folder called `UOHI_PCI_Log`
+6) Install Python https://www.python.org/downloads/
 
-7) Run in terminal `pip install pandas`
+7) Put your PCI data .xlsx file into the folder called `UOHI_PCI_Log`
 
-8) Run this command in terminal `python ComputeMetrics.py '**filename**'`
+8) Run in terminal `pip install pandas`
+
+9) Run this command in terminal `python ComputeMetrics.py '**filename**'`
 
 For example if your PCI Log book is named `avram_18_11_2020.xlsx` then you should run `python ComputeMetrics.py 'avram_18_11_2020.xlsx'`
 
