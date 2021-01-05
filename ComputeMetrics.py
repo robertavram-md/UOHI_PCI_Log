@@ -8,7 +8,6 @@ import pandas as pd
 import numpy as np
 
 # ## Vascular Access
-=
 def compute_lesion_vessels(df, column='L1'):
     lesion = column + '_Lesion_Vessel'
     segment = column + '_Segment_Number'
