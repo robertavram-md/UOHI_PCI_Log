@@ -9,10 +9,7 @@ import numpy as np
 def compute_lesion_vessels(df, column='L1'):
     lesion = column + ' Lesion Vessel'
     segment = column + ' Segment Number'
-    if (column == 'L10'):
-        stent = column + ' Total Number of Stents Placed'
-    else:
-        stent = column + ' Total Number of Stents Placed'
+    stent = column + ' Total Number of Stents Placed'
     df[lesion] = np.where(df[segment]==5, 'Left Main', np.where(df[segment].isin([6,7,8,9,10]),'LAD',np.where(df[segment].isin([11,12,13,14,15]),'LCx',np.where(df[segment].isin([1,2,3,4,5]),'RCA','NA'))))
     df[stent] = pd.to_numeric(df[stent], errors='coerce').fillna(0)
     return df
@@ -99,14 +96,11 @@ def init(file):
 # In[331]:
 
 def compute_multi_vessel(df_intervention):
+    column_list =  ['L1','L2', 'L3','L4','L5','L6','L7','L8','L9','L10']
     for index, row in df_intervention.iterrows():
-        column_list =  ['L1','L2', 'L3','L4','L5','L6','L7','L8','L9','L10']
         for column in column_list:
             lesion = column + ' Lesion Vessel'
-            if (column == 'L10'):
-                stent = column + ' Total Number of Stents Placed'
-            else:
-                stent = column + ' Total Number of Stents Placed'
+            stent = column + ' Total Number of Stents Placed'
             balloon = column + ' Balloon Angioplasty?'
             if (row[stent]==1) | (row[stent]==2)|(row[balloon]=='Yes'):
                 #found a vessel that was stented
@@ -116,32 +110,30 @@ def compute_multi_vessel(df_intervention):
 
                 for filtered_column in list_copy:
                     filtered_lesion = filtered_column + ' Lesion Vessel'
-                    if (filtered_column == 'L10'):
-                        filtered_stent = filtered_column + ' Total Number of Stents Placed'
-                    else:
-                        filtered_stent = filtered_column + ' Total Number of Stents Placed'
-
+                    filtered_stent = filtered_column + ' Total Number of Stents Placed'
                     filtered_balloon = filtered_column + ' Balloon Angioplasty?'
-                    if (row[filtered_stent]==1) | (row[filtered_stent]==2)|(row[filtered_balloon]=='Yes'):
-                        if (vessel_stented) != row[filtered_lesion]:
-                            df_intervention.at[index,'multi_vessel'] = True
-                            break
+                    if (row[filtered_stent] == 1) | (
+                        row[filtered_stent] == 2
+                    ) | (row[filtered_balloon] == 'Yes') and (
+                        vessel_stented
+                    ) != row[
+                        filtered_lesion
+                    ]:
+                        df_intervention.at[index,'multi_vessel'] = True
+                        break
     return df_intervention
 
 # In[319]:
 
 def compute_bifurcation(df_intervention):
+    column_list =  ['L1','L2', 'L3','L4','L5','L6','L7','L8','L9','L10']
     #TODO : CLASSIFY MEDINA FOR BIFURCATIONS
     #TODO : CLASSIFY TECHNIQUE
 
     for index, row in df_intervention.iterrows():
-        column_list =  ['L1','L2', 'L3','L4','L5','L6','L7','L8','L9','L10']
         for column in column_list:
             lesion = column + ' Lesion Vessel'
-            if (column == 'L10'):
-                stent = column + ' Total Number of Stents Placed'
-            else:
-                stent = column + ' Total Number of Stents Placed'
+            stent = column + ' Total Number of Stents Placed'
             balloon = column + ' Balloon Angioplasty?'
             bifurcation = column + ' Bifurcation Lesion'
 
@@ -154,17 +146,14 @@ def compute_bifurcation(df_intervention):
     return df_intervention
 
 def compute_left_main(df_intervention):
+    column_list =  ['L1','L2', 'L3','L4','L5','L6','L7','L8','L9','L10']
     #TODO : CLASSIFY MEDINA FOR BIFURCATIONS
     #TODO : CLASSIFY TECHNIQUE
 
     for index, row in df_intervention.iterrows():
-        column_list =  ['L1','L2', 'L3','L4','L5','L6','L7','L8','L9','L10']
         for column in column_list:
             lesion = column + ' Lesion Vessel'
-            if (column == 'L10'):
-                stent = column + ' Total Number of Stents Placed'
-            else:
-                stent = column + ' Total Number of Stents Placed'
+            stent = column + ' Total Number of Stents Placed'
             balloon = column + ' Balloon Angioplasty?'
             bifurcation = column + ' Bifurcation Lesion'
 
@@ -191,55 +180,60 @@ def generate_intervention_dataframe(df):
 # In[321]:
 
 def generate_summary_dataframe(df, df_intervention):
-    objective = []
-    count = []
+    objective = [
+        'Radial Access',
+        'Femoral Access',
+        'Brachial Access',
+        'Number of diagnostic cases',
+        'Number of FFR, IVUS, OCT or PCI cases',
+        'Number of FFR, IVUS, OCT or PCI cases',
+        'FFR cases',
+        'IVUS cases',
+        'OCT cases',
+        'PCI cases',
+        'STEMI',
+        'Hemodynamic Instability [Shock, Arrest, ROSC, Intubated]',
+        'Multivessel PCI',
+        'Bifurcation PCI',
+        'Left Main PCI',
+        'Complex CAD [Bifurcation, Calcifried, LM, CTO or thrombotic]',
+    ]
 
-    objective.append('Radial Access')
-    count.append(len(df.loc[df['Access Site Utilized']=='Radial']))
-    objective.append('Femoral Access')
-    count.append(len(df.loc[df['Access Site Utilized']=='Femoral']))
-    objective.append('Brachial Access')
-    count.append(len(df.loc[df['Access Site Utilized']=='Brachial']))
-    objective.append('Number of diagnostic cases')
-    count.append(len(df.loc[df['ffr_or_ivus_or_oct_or_pci']=='No']))
-    objective.append('Number of FFR, IVUS, OCT or PCI cases')
-    count.append(len(df.loc[df['ffr_or_ivus_or_oct_or_pci']=='Yes']))
-    objective.append('Number of FFR, IVUS, OCT or PCI cases')
-    count.append(len(df.loc[df['ffr_or_ivus_or_oct_or_pci']=='Yes']))
-    objective.append('FFR cases')
-    count.append(len(df.loc[df['ffr_performed']=='Yes']))
-    objective.append('IVUS cases')
-    count.append(len(df.loc[df['ivus_performed']=='Yes']))
-    objective.append('OCT cases')
-    count.append(len(df.loc[df['oct_performed']=='Yes']))
-    objective.append('PCI cases')
-    count.append(len(df.loc[df['stent_placed']=='Yes']))
-    objective.append('STEMI')
-    count.append(len(df.loc[df['STEMI']=='yes']))
-    objective.append('Hemodynamic Instability [Shock, Arrest, ROSC, Intubated]')
-    count.append(len(df.loc[df['hemodynamic_instability']=='Yes']))
-    objective.append('Multivessel PCI')
-    count.append(len(df_intervention.loc[df_intervention['multi_vessel']==True]))
-    objective.append('Bifurcation PCI')
-    count.append(len(df_intervention.loc[df_intervention['bifurcation_interv']==True]))
-    objective.append('Left Main PCI')
-    count.append(len(df_intervention.loc[df_intervention['lm_interv']==True]))
-    objective.append('Complex CAD [Bifurcation, Calcifried, LM, CTO or thrombotic]')
-    count.append(len(df_intervention.loc[df_intervention['complex_cad_case']==True]))
-    df_count = pd.DataFrame(list(zip(objective, count)),
-               columns =['Objective', 'Number'])
-    return df_count
+    count = [
+        len(df.loc[df['Access Site Utilized'] == 'Radial']),
+        len(df.loc[df['Access Site Utilized'] == 'Femoral']),
+        len(df.loc[df['Access Site Utilized'] == 'Brachial']),
+        len(df.loc[df['ffr_or_ivus_or_oct_or_pci'] == 'No']),
+        len(df.loc[df['ffr_or_ivus_or_oct_or_pci'] == 'Yes']),
+        len(df.loc[df['ffr_or_ivus_or_oct_or_pci'] == 'Yes']),
+        len(df.loc[df['ffr_performed'] == 'Yes']),
+        len(df.loc[df['ivus_performed'] == 'Yes']),
+        len(df.loc[df['oct_performed'] == 'Yes']),
+        len(df.loc[df['stent_placed'] == 'Yes']),
+        len(df.loc[df['STEMI'] == 'yes']),
+        len(df.loc[df['hemodynamic_instability'] == 'Yes']),
+        len(df_intervention.loc[df_intervention['multi_vessel'] == True]),
+        len(
+            df_intervention.loc[df_intervention['bifurcation_interv'] == True]
+        ),
+        len(df_intervention.loc[df_intervention['lm_interv'] == True]),
+        len(df_intervention.loc[df_intervention['complex_cad_case'] == True]),
+    ]
+
+    return pd.DataFrame(
+        list(zip(objective, count)), columns=['Objective', 'Number']
+    )
 
 # In[322]:
 
 
-def save_files (df, df_intervention, df_count):
+def save_files(df, df_intervention, df_count):
     from datetime import date
 
     today = date.today()
-    output_count = 'condensed_summary_' + str(today) +'.csv'
-    intervention_output = 'interventions_' + str(today) +'.csv'
-    overall_output = 'overall_' + str(today) +'.csv'
+    output_count = f'condensed_summary_{str(today)}.csv'
+    intervention_output = f'interventions_{str(today)}.csv'
+    overall_output = f'overall_{str(today)}.csv'
     df.to_csv(overall_output)
     df_intervention.to_csv(intervention_output)
     df_count.to_csv(output_count)
